@@ -1,0 +1,16 @@
+<form action="/polls/your-name/" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Submit">
+</form>
+
+
+<!-- # In your template: -->
+<!-- {{ form }} -->
+<!-- # In form_snippet.html: -->
+<!-- {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+    </div>
+{% endfor %} -->

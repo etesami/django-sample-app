@@ -2,8 +2,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.template import loader
+from .forms import NameForm
 from .models import Choice, Question
 from django.views import generic
+from django import forms
+
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -79,3 +82,41 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     # return HttpResponse("You're voting on question %s." % question_id)
+    
+    
+    
+# class MyForm(forms.Form):
+#     template_name = "polls/name.html"    
+    
+    
+def get_name(request):
+    # form = MyForm()
+    # rendered_form = form.render("polls/name.html")
+    # context = {'form': rendered_form}
+    # return render(request, 'polls/thanks.html', context)
+    
+    
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            your_name = form.cleaned_data['your_name']
+            
+            context = {'your_name': your_name}
+            return render(request, 'polls/thanks.html', context)
+
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'polls/name.html', {'form': form})
+
+
+# def thanks(request):
+#     return render(request, 'polls/thanks.html')
+    # response = "You're looking at the results of question %s."
+    # return HttpResponse(response % question_id)
