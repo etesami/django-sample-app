@@ -1,11 +1,13 @@
-<!-- <h1>{{ question.question_text }}</h1>
+{% comment %} <h1>{{ question.question_text }}</h1>
 <ul>
 {% for choice in question.choice_set.all %}
     <li>{{ choice.choice_text }}</li>
 {% endfor %}
-</ul> -->
+</ul> {% endcomment %}
 
-
+{% comment %} 
+Whenever you create a form that alters data server-side, use method="post". 
+{% endcomment %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
   {% csrf_token %}
   <fieldset>
@@ -17,4 +19,4 @@
       {% endfor %}
   </fieldset>
   <input type="submit" value="Vote">
-  </form>
+</form>
