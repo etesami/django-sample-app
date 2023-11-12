@@ -128,7 +128,6 @@ def get_name(request):
     # context = {'form': rendered_form}
     # return render(request, 'polls/thanks.html', context)
     
-    
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -137,19 +136,10 @@ def get_name(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             your_name = form.cleaned_data['your_name']
-            
             context = {'your_name': your_name}
             return render(request, 'polls/thanks.html', context)
-
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
-
     return render(request, 'polls/name.html', {'form': form})
-
-
-# def thanks(request):
-#     return render(request, 'polls/thanks.html')
-    # response = "You're looking at the results of question %s."
-    # return HttpResponse(response % question_id)
