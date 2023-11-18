@@ -34,7 +34,7 @@ class QuestionAdmin(admin.ModelAdmin):
     
     search_fields = ['question_text']
     fieldsets = [
-        (None,               {'fields': ['question_text', 'quation_details']}),
+        (None,               {'fields': ['question_text', 'quation_details', 'question_type']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     

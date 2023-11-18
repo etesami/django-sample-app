@@ -12,7 +12,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
-        
+
+
+
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Question
