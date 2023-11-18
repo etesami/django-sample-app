@@ -1,4 +1,14 @@
 # Django Sample App
+
+- [Django Sample App](#django-sample-app)
+    - [Installation and Setup](#installation-and-setup)
+  - [High-level Steps](#high-level-steps)
+  - [Interactive Shell](#interactive-shell)
+  - [djangorestframework](#djangorestframework)
+  - [Authentication using Simple JWT](#authentication-using-simple-jwt)
+    - [Views](#views)
+
+
 ### Installation and Setup
 The following instructions are based on the official guide [here](https://docs.djangoproject.com/en/4.2/intro/tutorial01/).
 
@@ -65,5 +75,46 @@ python manage.py createsuperuser
 ```bash
 python manage.py shell
 ```
+
+## djangorestframework
+Django REST framework is a powerful and flexible toolkit for building Web APIs.
+Helps with writing RESTful APIs and provides JSON parser, CRUD views, permissions, and serializers.
+
+```bash
+pip install djangorestframework
+
+# Markdown support for the browsable API.
+pip install markdown       
+```
+Once installed add `rest_framework` to the installed apps. Additionally in `urls.py` and `settings.py`:
+```python
+path('api-auth/', include('rest_framework.urls')),
+```
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # Use Django's standard `django.contrib.auth` permissions,
+        # or allow read-only access for unauthenticated users
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # No authentication required (test only)
+        # 'rest_framework.permissions.AllowAny' 
+    ]
+}
+```
+Then
+- Define serializers `serializers.py`
+- Define views `UserViewSet` and `GroupViewSet`
+
+
+## Authentication using Simple JWT
+```bash
+pip install djangorestframework-simplejwt
+```
+You may follow the [official guide page](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html). The guide includes the following steps:
+- Project Configuration (modify `settings.py`)
+- In `urls.py` include routes for Simple JWT’s views
+- To protect each view, use `authentication_classes` with `JWTAuthentication`. 
+
 
 ### Views
