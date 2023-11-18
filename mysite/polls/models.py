@@ -10,6 +10,12 @@ class Question(models.Model):
     quation_details = models.TextField(
         blank=True, help_text="Enter a brief reason for the importance of this question here."
     )
+    type_choices = [
+        ('F', 'Fun'),
+        ('S', 'Science'),
+        ('O', 'Other'),
+    ]
+    question_type = models.CharField(max_length=1, choices=type_choices, default='O')
 
     # useful when dealing with the interactive prompt, but also because objects’ 
     # representations are used throughout Django’s automatically-generated admin
