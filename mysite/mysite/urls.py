@@ -16,7 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from rest_framework import routers
+from polls import views_restframework
+
+# Simple JWT
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+router = routers.DefaultRouter()
+router.register(r'users', views_restframework.UserViewSet)
+router.register(r'groups', views_restframework.GroupViewSet)
+# router.register(r'lists', views_restframework.hello_world)
+
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
+
+    path('api/', include('api.urls')),
+    # Automatic URL routing
+    path('', include(router.urls)),
+    # login URLs for the browsable API.
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Simple JWT's views
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
